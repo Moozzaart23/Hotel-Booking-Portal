@@ -6,7 +6,8 @@ import javax.swing.*;
 public class MainPage {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+       Main obj1=new Main();
+       obj1.front();
     }
     
 }
