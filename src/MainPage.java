@@ -9,10 +9,10 @@ public class MainPage {
        //Main obj1=new Main();
        //obj1.front();
         
-        /*SignUp sign_obj=new SignUp();
-       sign_obj.signup();*/
-       login_page obj= new login_page();
-       obj.login_pag();
+        SignUp sign_obj=new SignUp();
+       sign_obj.signup();
+       /*login_page obj= new login_page();
+       obj.login_pag();*/
     }
     
 }
