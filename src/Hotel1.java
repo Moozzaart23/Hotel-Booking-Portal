@@ -9,7 +9,7 @@
  * @author anish
  */
 public class Hotel1 extends javax.swing.JFrame {
-
+public booking obj=new booking();
     /**
      * Creates new form Hotel1
      */
@@ -182,13 +182,15 @@ public class Hotel1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+                obj.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void hotel(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -212,12 +214,12 @@ public class Hotel1 extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Hotel1().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
