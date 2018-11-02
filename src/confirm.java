@@ -13,9 +13,9 @@ public class confirm extends javax.swing.JFrame {
 
         heading = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        congrats = new javax.swing.JLabel();
+        booking_ref = new javax.swing.JLabel();
+        cont = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -24,14 +24,14 @@ public class confirm extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setText("Congratulations, your booking is successful!");
+        congrats.setText("Congratulations, your booking is successful!");
 
-        jLabel3.setText("Booking Reference : x543F2t3");
+        booking_ref.setText("Booking Reference : x543F2t3");
 
-        jButton1.setText("Continue");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cont.setText("Continue");
+        cont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                contActionPerformed(evt);
             }
         });
 
@@ -43,24 +43,24 @@ public class confirm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(congrats)
                         .addGap(90, 90, 90))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(cont)
                         .addGap(159, 159, 159))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(booking_ref)
                         .addGap(125, 125, 125))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(congrats)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(booking_ref)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(cont)
                 .addContainerGap())
         );
 
@@ -90,10 +90,10 @@ public class confirm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
         this.setVisible(false);
         new login().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_contActionPerformed
 
     
     public void confirmation(String args[]) {
@@ -129,10 +129,10 @@ public class confirm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel booking_ref;
+    private javax.swing.JLabel congrats;
+    private javax.swing.JButton cont;
     private javax.swing.JLabel heading;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

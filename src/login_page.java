@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -34,6 +35,7 @@ public class login_page extends javax.swing.JFrame {
         txt_password = new javax.swing.JPasswordField();
         login = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         heading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,6 +75,13 @@ public class login_page extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox1.setText("Show Password");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -81,20 +90,21 @@ public class login_page extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(18, 18, 18)
+                            .addComponent(cancel))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(user_id)
                                 .addComponent(password))
                             .addGap(24, 24, 24)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cancel)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_password)
+                                .addComponent(txt_user_id))
+                            .addGap(3, 3, 3)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(login_heading)))
@@ -113,11 +123,13 @@ public class login_page extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password)
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(login)
                     .addComponent(cancel))
-                .addGap(19, 19, 19))
+                .addGap(28, 28, 28))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -145,8 +157,16 @@ public class login_page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if("Enter User ID".equals(txt_user_id.getText())){
+        JOptionPane.showMessageDialog(null, "Enter Valid User ID");
+        }
+        else if(txt_password.getPassword().length==0){
+        JOptionPane.showMessageDialog(null, "Enter Valid Password");
+        }
+        else{
         this.setVisible(false);
         new login().setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
@@ -167,20 +187,23 @@ public class login_page extends javax.swing.JFrame {
         txt_user_id.setText("Enter User ID");
     }//GEN-LAST:event_txt_user_idFocusLost
     }
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if(jCheckBox1.isSelected()){
+            txt_password.setEchoChar((char)0);
+        }else
+        txt_password.setEchoChar('*');
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    
     
     public void login_pag() {
         
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new login_page().setVisible(true);
-            }
-        });*/
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
     private javax.swing.JLabel heading;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton login;
     private javax.swing.JLabel login_heading;

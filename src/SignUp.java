@@ -1,6 +1,7 @@
 import java.awt.Color;
 import javax.swing.*;
 import java.util.regex.Pattern;
+import java.util.*;
 
 public class SignUp extends javax.swing.JFrame {
 
@@ -8,8 +9,6 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
     }
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,6 +107,8 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
 
+        txt_dob.setDateFormatString("dd-MM-yyyy");
+
         jCheckBox1.setText("Show Password");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,38 +202,53 @@ public class SignUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     private void proceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedActionPerformed
-        
+        boolean name_flag=true,dob_flag=true,add=true;
         if("Enter Name".equals(txt_name.getText())){
+            name_flag=false;
         JOptionPane.showMessageDialog(null, "Enter Valid Name");
         }
-        //date
-        //else if(txt_name.getText()=="Enter Name"){
-        //JOptionPane.showMessageDialog(null, "Enter Valid Name");
-        //}
-        else if("Enter Address".equals(txt_address.getText())){
-        JOptionPane.showMessageDialog(null, "Enter Valid Address");
+        
+        if(true&&name_flag){
+        Date d1 = new Date();
+        Date d2 = txt_dob.getDate();
+        try {if(d1.before(d2)){
+            dob_flag=false;
+        JOptionPane.showMessageDialog(null, "Enter Valid DOB. You are too young!");
+        }}
+        catch(Exception e){
+            dob_flag=false;
+        JOptionPane.showMessageDialog(null, "Enter Valid DOB.");
         }
-        else if("Enter Email ID".equals(txt_email.getText())){
+        }
+        if("Enter Address".equals(txt_address.getText())&&!"Enter Name".equals(txt_name.getText())&&name_flag&&dob_flag){
+        add=false;
+            JOptionPane.showMessageDialog(null, "Enter Valid Address");
+        }
+        else if("Enter Email ID".equals(txt_email.getText())&&!"Enter Name".equals(txt_name.getText())&&name_flag&&dob_flag){
+            add=false;
             JOptionPane.showMessageDialog(null, "Enter a Valid Email-ID");
         }
-        else if(!"Enter Email ID".equals(txt_email.getText())){
+        else if(!"Enter Email ID".equals(txt_email.getText())&&!"Enter Name".equals(txt_name.getText())&&name_flag&&dob_flag){
             boolean b1=verify_email(txt_email.getText());
-            if(!b1)
+            if(!b1){
+                add=false;
                 JOptionPane.showMessageDialog(null, "Enter a Valid Email-ID");
+            }
         }
         
-        if("Enter User ID".equals(txt_user_id.getText())){
+        if("Enter User ID".equals(txt_user_id.getText())&&!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())&&add){
         JOptionPane.showMessageDialog(null, "Enter Valid User ID");
         }
-        else if(txt_password.getPassword().length==0){
+        else if(txt_password.getPassword().length==0&&!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())&&add){
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
-        else{
+        else if(!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())&&dob_flag&&name_flag&&add){
+        
         this.setVisible(false);
-        new Main().setVisible(true);}
+        new Main().setVisible(true);
+        JOptionPane.showMessageDialog(null, "Signup Successful");
+        }
     }//GEN-LAST:event_proceedActionPerformed
 
     private void txt_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nameFocusGained
