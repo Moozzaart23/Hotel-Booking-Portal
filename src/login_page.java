@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Toolkit;
 
 
@@ -154,13 +155,18 @@ public class login_page extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void txt_user_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_user_idFocusGained
-        // TODO add your handling code here:
+        if(txt_user_id.getText().equals("Enter User ID")){
+        txt_user_id.setText(null);
+        txt_user_id.setForeground(Color.BLACK);
     }//GEN-LAST:event_txt_user_idFocusGained
-
+    }
+        
     private void txt_user_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_user_idFocusLost
-        // TODO add your handling code here:
+        if(txt_user_id.getText().equals("")){
+            txt_user_id.setForeground(new Color(204,204,204));
+        txt_user_id.setText("Enter User ID");
     }//GEN-LAST:event_txt_user_idFocusLost
-
+    }
     
     public void login_pag() {
         

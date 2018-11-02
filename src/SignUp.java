@@ -1,13 +1,6 @@
-
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JTextField; 
+import javax.swing.*;
 import java.util.regex.Pattern;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import javax.swing.text.JTextComponent;
-
 
 public class SignUp extends javax.swing.JFrame {
 
@@ -37,6 +30,7 @@ public class SignUp extends javax.swing.JFrame {
         cancel = new javax.swing.JButton();
         txt_dob = new com.toedter.calendar.JDateChooser();
         txt_password = new javax.swing.JPasswordField();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,11 +78,6 @@ public class SignUp extends javax.swing.JFrame {
                 txt_emailFocusLost(evt);
             }
         });
-        txt_email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_emailActionPerformed(evt);
-            }
-        });
 
         user_id.setText("User ID");
 
@@ -104,11 +93,6 @@ public class SignUp extends javax.swing.JFrame {
                 txt_user_idFocusLost(evt);
             }
         });
-        txt_user_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_user_idActionPerformed(evt);
-            }
-        });
 
         proceed.setText("PROCEED");
         proceed.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +105,13 @@ public class SignUp extends javax.swing.JFrame {
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setText("Show Password");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
             }
         });
 
@@ -152,7 +143,9 @@ public class SignUp extends javax.swing.JFrame {
                         .addGap(91, 91, 91)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(txt_password))))
+                            .addComponent(txt_password))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox1)))
                 .addGap(0, 69, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,15 +186,16 @@ public class SignUp extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(user_id)
                     .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(proceed)
                     .addComponent(cancel))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,8 +204,35 @@ public class SignUp extends javax.swing.JFrame {
     
     
     private void proceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedActionPerformed
+        
+        if("Enter Name".equals(txt_name.getText())){
+        JOptionPane.showMessageDialog(null, "Enter Valid Name");
+        }
+        //date
+        //else if(txt_name.getText()=="Enter Name"){
+        //JOptionPane.showMessageDialog(null, "Enter Valid Name");
+        //}
+        else if("Enter Address".equals(txt_address.getText())){
+        JOptionPane.showMessageDialog(null, "Enter Valid Address");
+        }
+        else if("Enter Email ID".equals(txt_email.getText())){
+            JOptionPane.showMessageDialog(null, "Enter a Valid Email-ID");
+        }
+        else if(!"Enter Email ID".equals(txt_email.getText())){
+            boolean b1=verify_email(txt_email.getText());
+            if(!b1)
+                JOptionPane.showMessageDialog(null, "Enter a Valid Email-ID");
+        }
+        
+        if("Enter User ID".equals(txt_user_id.getText())){
+        JOptionPane.showMessageDialog(null, "Enter Valid User ID");
+        }
+        else if(txt_password.getPassword().length==0){
+        JOptionPane.showMessageDialog(null, "Enter Valid Password");
+        }
+        else{
         this.setVisible(false);
-        new Main().setVisible(true);
+        new Main().setVisible(true);}
     }//GEN-LAST:event_proceedActionPerformed
 
     private void txt_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nameFocusGained
@@ -256,22 +277,10 @@ public class SignUp extends javax.swing.JFrame {
         if(txt_email.getText().equals("")){
             txt_email.setForeground(new Color(204,204,204));
         txt_email.setText("Enter E-mail ID");
-        if(txt_email.getText()!="Enter E-mail ID"){
-            boolean b1;
-            String mail = txt_email.getText();
-            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
-                            "[a-zA-Z0-9_+&*-]+)*@" + 
-                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
-                            "A-Z]{2,7}$"; 
-                              
-            Pattern pat = Pattern.compile(emailRegex); 
-            if (mail == null) 
-                b1 = false; 
-            b1 = pat.matcher(mail).matches();
-            if(!b1)
-                JOptionPane.showMessageDialog(null, "Enter a Valid E-mail ID");
+        }
+        if(!txt_email.getText().equals("Enter E-mail ID")){
+            verify_email(txt_email.getText());
          }
-    }
     }//GEN-LAST:event_txt_emailFocusLost
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
@@ -279,67 +288,46 @@ public class SignUp extends javax.swing.JFrame {
         new Main().setVisible(true);
     }//GEN-LAST:event_cancelActionPerformed
 
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
-    
-    }//GEN-LAST:event_txt_emailActionPerformed
-
     private void txt_user_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_user_idFocusGained
-        if(txt_email.getText().equals("Enter E-mail ID")){
-        txt_email.setText(null);
-        txt_email.setForeground(Color.BLACK);
+        if(txt_user_id.getText().equals("Enter User ID")){
+        txt_user_id.setText(null);
+        txt_user_id.setForeground(Color.BLACK);
     }
     }//GEN-LAST:event_txt_user_idFocusGained
 
     private void txt_user_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_user_idFocusLost
-        // TODO add your handling code here:
+        if(txt_user_id.getText().equals("")){
+            txt_user_id.setForeground(new Color(204,204,204));
+        txt_user_id.setText("Enter User ID");
     }//GEN-LAST:event_txt_user_idFocusLost
+    }
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if(jCheckBox1.isSelected()){
+            txt_password.setEchoChar((char)0);
+        }else
+            txt_password.setEchoChar('*');
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    
 
-    private void txt_user_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_user_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_user_idActionPerformed
-    InputVerifier iv = new InputVerifier() {
-      @Override
-      public boolean verify(JComponent input) {
-          final JTextComponent source = (JTextComponent) input;
-          String email = source.getText();
+      public boolean verify_email(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
                             "[a-zA-Z0-9_+&*-]+)*@" + 
                             "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
                             "A-Z]{2,7}$"; 
-                              
         Pattern pat = Pattern.compile(emailRegex); 
         if (email == null) 
             return false; 
-        return pat.matcher(email).matches(); 
-    }
-    };
-
-    public void signup() {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-       
+        return pat.matcher(email).matches();
     }
 
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;
     private javax.swing.JButton cancel;
     private javax.swing.JLabel dob;
     private javax.swing.JLabel email;
     private javax.swing.JLabel heading;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel password;
