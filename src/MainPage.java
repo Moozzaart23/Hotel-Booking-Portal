@@ -1,7 +1,6 @@
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainPage {
 
@@ -9,10 +8,6 @@ public class MainPage {
        Main obj1=new Main();
        obj1.front();
         
-       /*SignUp sign_obj=new SignUp();
-       sign_obj.signup();
-       /*login_page obj= new login_page();
-       obj.login_pag();*/
     }
     
 }
