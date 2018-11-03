@@ -4,6 +4,7 @@ public class confirm extends javax.swing.JFrame {
     
     public confirm() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     
@@ -18,6 +19,7 @@ public class confirm extends javax.swing.JFrame {
         cont = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         heading.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         heading.setText("ONLINE HOTEL BOOKING PORTAL");

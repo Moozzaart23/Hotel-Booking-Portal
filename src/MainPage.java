@@ -1,13 +1,9 @@
+import com.test.reportGenertors.Report;
+import javax.swing.JFrame;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class MainPage {
+public class MainPage extends JFrame{
 
     public static void main(String[] args) {
-       Main obj1=new Main();
-       obj1.front();
-        
+       new login_page().setVisible(true);
     }
-    
 }

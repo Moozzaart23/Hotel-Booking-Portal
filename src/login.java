@@ -7,6 +7,7 @@ public class login extends javax.swing.JFrame {
     
     public login() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     
@@ -35,6 +36,7 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(500, 420));
+        setResizable(false);
 
         bookings.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -225,7 +227,7 @@ public class login extends javax.swing.JFrame {
 
     private void logout_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_buttonActionPerformed
         this.setVisible(false);
-        new Main().setVisible(true);
+        new login_page().setVisible(true);
     }//GEN-LAST:event_logout_buttonActionPerformed
 
     private void search_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_buttonActionPerformed
@@ -256,7 +258,7 @@ public class login extends javax.swing.JFrame {
             dob_flag=false;
         JOptionPane.showMessageDialog(null, "Enter Valid Dates");
         }
-        }
+        }try{
         if("".equals(txt_rooms.getText())|| "".equals(txt_guests.getText())&&dob_flag){
             room=false;
             if("".equals(txt_rooms.getText())&&!"".equals(txt_guests.getText()))
@@ -273,6 +275,22 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "We allow maximum of 3 people per room");
                     }
                 }
+        }
+        catch(Exception e){
+            try {
+            if("".equals(txt_rooms.getText()));
+            try{
+                if("".equals(txt_guests.getText()));
+            }
+            catch(Exception g){
+                JOptionPane.showMessageDialog(null, "Enter Valid No. of Guests");
+            }
+                }
+            catch(Exception f){
+              JOptionPane.showMessageDialog(null, "Enter Valid No. of Rooms");  
+            }
+            
+        }
         
         
         if(dob_flag&&room){

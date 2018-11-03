@@ -7,6 +7,7 @@ public class booking extends javax.swing.JFrame {
     
     public booking() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     
@@ -26,6 +27,7 @@ public class booking extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         heading.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         heading.setText("ONLINE HOTEL BOOKING PORTAL");
@@ -128,6 +130,7 @@ public class booking extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        try{
         if(Double.parseDouble(txt_aadhar.getText())<=999999999999999L||Double.parseDouble(txt_aadhar.getText())>=10000000000000000L){
             if(aadhar.getSelectedItem().equals("Aadhar Number"))
                 JOptionPane.showMessageDialog(null,"Enter a Valid Aadhar Number");
@@ -138,6 +141,13 @@ public class booking extends javax.swing.JFrame {
             this.setVisible(false);
             new confirm().setVisible(true);
             }
+        }
+        catch(Exception e){
+        if(aadhar.getSelectedItem().equals("Aadhar Number"))
+                JOptionPane.showMessageDialog(null,"Enter a Valid Aadhar Number");
+            else
+                JOptionPane.showMessageDialog(null,"Enter a Valid PAN Number");
+        }
     }//GEN-LAST:event_confirmActionPerformed
 
     public void book() {
@@ -164,12 +174,7 @@ public class booking extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new booking().setVisible(true);
-            }
-        });*/
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
