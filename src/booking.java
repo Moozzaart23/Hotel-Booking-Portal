@@ -1,9 +1,18 @@
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class booking extends javax.swing.JFrame {
-    
-    public booking() {
+    Date d11,d22;
+   int index,nrooms;
+   String hotelname=new String();
+    public booking(String namehotel,int ind,Date d1,Date d2,int rooms) {
+        d11=d1;
+        d22=d2;
+        hotelname=namehotel;
+        nrooms=rooms;
+        index=ind;
         initComponents();
+        bitsian.setToolTipText("10% Off on Total Price");
         this.setLocationRelativeTo(null);
     }
 
@@ -20,6 +29,8 @@ public class booking extends javax.swing.JFrame {
         txt_aadhar = new javax.swing.JTextField();
         confirm = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
+        discounts = new javax.swing.JLabel();
+        bitsian = new javax.swing.JCheckBox();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -54,6 +65,15 @@ public class booking extends javax.swing.JFrame {
             }
         });
 
+        discounts.setText("Discounts :");
+
+        bitsian.setText("Bitsian Discount");
+        bitsian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bitsianActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -69,11 +89,21 @@ public class booking extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(txt_aadhar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(discounts, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(bitsian)))))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +114,11 @@ public class booking extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aadhar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_aadhar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(discounts, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bitsian))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirm)
                     .addComponent(cancel))
@@ -123,7 +157,7 @@ public class booking extends javax.swing.JFrame {
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.setVisible(false);
-        new Hotel1().setVisible(true);
+        new Hotel1(hotelname,index,d11,d22,nrooms).setVisible(true);
     }//GEN-LAST:event_cancelActionPerformed
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
@@ -146,6 +180,20 @@ public class booking extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Enter a Valid PAN Number");
         }
     }//GEN-LAST:event_confirmActionPerformed
+
+    private void bitsianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bitsianActionPerformed
+        if(bitsian.isSelected()){
+            // get email from database
+            String email="anish@gmail.com";
+            if(!email.contains(".bits-pilani.ac.in")){
+                JOptionPane.showMessageDialog(null, "Please login from your bitsmail account");
+                bitsian.setSelected(false);
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "A Verification Code has been sent to your email. Kindly provide it during Check-In to avail discount.");
+        }
+        }
+    }//GEN-LAST:event_bitsianActionPerformed
 
     public void book() {
         /* Set the Nimbus look and feel */
@@ -175,8 +223,10 @@ public class booking extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> aadhar;
+    private javax.swing.JCheckBox bitsian;
     private javax.swing.JButton cancel;
     private javax.swing.JButton confirm;
+    private javax.swing.JLabel discounts;
     private javax.swing.JLabel enter_details;
     private javax.swing.JLabel heading;
     private javax.swing.JPanel jPanel1;

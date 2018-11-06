@@ -234,7 +234,7 @@
                     <StringItem index="1" value="Bangalore"/>
                     <StringItem index="2" value="Kolkata"/>
                     <StringItem index="3" value="Hyderabad"/>
-                    <StringItem index="4" value="Chennai"/>
+                    <StringItem index="4" value="Mumbai"/>
                   </StringArray>
                 </Property>
               </Properties>

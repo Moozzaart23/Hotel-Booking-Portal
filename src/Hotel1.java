@@ -1,11 +1,52 @@
-public class Hotel1 extends javax.swing.JFrame {
-public booking obj=new booking();
-    
-    public Hotel1() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-    }
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
+public class Hotel1 extends javax.swing.JFrame {
+
+   static Connection connect = null;
+   Date d11,d22;
+   int index,nrooms;
+   String hotelname=new String();
+    public Hotel1(String namehotel,int ind,Date d1,Date d2,int rooms) {
+        d11=d1;
+        d22=d2;
+        hotelname=namehotel;
+        nrooms=rooms;
+        index=ind;
+        int days=d2.getDate()-d1.getDate();
+        initComponents();
+        connect = hotel.dbconnect();
+        this.setLocationRelativeTo(null);
+        try{
+        //String sql = "select hotelname,Address,Price,Ratings,numofratings,Amenities, from hotel";
+        String query ="select * from hotel where hotelname = ? ";
+        PreparedStatement pst = connect.prepareStatement(query);
+        pst.setString(1,namehotel);
+        ResultSet rs=pst.executeQuery();
+        while(rs.next()){
+            String hotelname = rs.getString("hotelname");
+             String Address = rs.getString("Address");
+              String Price = rs.getString("Price");
+             String Ratings = rs.getString("Ratings");
+              String numofratings = rs.getString("numofratings");
+              String Amenities = rs.getString("Amenities");
+              hotelnamelabel.setText(hotelname);
+              pricelabel.setText("Rs. "+String.valueOf(Integer.parseInt(Price)*rooms)+" - Price for "+rooms+" rooms per night");
+              pricetot.setText("Rs. "+String.valueOf(rooms*days*Integer.parseInt(Price))+" - Total Price for " +String.valueOf(days)+ " nights");
+              numofrev.setText(numofratings);
+              addresslabel.setText(Address);
+              ratingslabel.setText(Ratings+"/5");
+              addresslabel.setText(Address);
+              amenities.setText(Amenities);
+}
+    }catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+
+    } }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -13,21 +54,20 @@ public booking obj=new booking();
 
         heading = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        hotelnamelabel = new javax.swing.JLabel();
+        addresslabel = new javax.swing.JLabel();
+        pricelabel = new javax.swing.JLabel();
+        pricetot = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        numofrev = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
+        ratingslabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        amenities = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -37,18 +77,18 @@ public booking obj=new booking();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel1.setText("HOTEL XYZ");
+        hotelnamelabel.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        hotelnamelabel.setText("HOTEL XYZ");
 
-        jLabel3.setText("GB Road, New Delhi");
+        addresslabel.setText("GB Road, New Delhi");
 
-        jLabel4.setText("₹       - Price per night");
+        pricelabel.setText("Rs.       - Price per night");
 
-        jLabel5.setText("₹       - Price for y night");
+        pricetot.setText("Rs.       - Price for y night");
 
-        jLabel6.setText("Ratings    3.5/5");
+        jLabel6.setText("Ratings    ");
 
-        jLabel7.setText("Reviewed by 527 guests");
+        numofrev.setText("Reviewed by ");
 
         jButton1.setText("Proceed");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -60,20 +100,18 @@ public booking obj=new booking();
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel8.setText("Amenities Offered");
 
-        jLabel9.setText("Complimentary Breakfast");
-
-        jLabel10.setText("Free Parking");
-
-        jLabel11.setText("Laundry on Call");
-
-        jLabel12.setText("Newspaper ");
-
         back.setText("Back");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
+
+        ratingslabel.setText("jLabel1");
+
+        amenities.setColumns(20);
+        amenities.setRows(5);
+        jScrollPane1.setViewportView(amenities);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,13 +122,16 @@ public booking obj=new booking();
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)))
+                            .addComponent(hotelnamelabel)
+                            .addComponent(addresslabel)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ratingslabel))
+                            .addComponent(numofrev)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -99,21 +140,16 @@ public booking obj=new booking();
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(95, 95, 95)
-                                .addComponent(jLabel12))
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(147, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(pricetot)
+                            .addComponent(pricelabel, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(73, 73, 73))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,13 +161,13 @@ public booking obj=new booking();
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(hotelnamelabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(addresslabel)
                 .addGap(12, 12, 12)
-                .addComponent(jLabel4)
+                .addComponent(pricelabel)
                 .addGap(37, 37, 37)
-                .addComponent(jLabel5)
+                .addComponent(pricetot)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,20 +176,16 @@ public booking obj=new booking();
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addGap(16, 16, 16)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(ratingslabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addComponent(numofrev)
                 .addGap(36, 36, 36))
         );
 
@@ -162,7 +194,7 @@ public booking obj=new booking();
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(145, Short.MAX_VALUE)
                 .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
@@ -185,57 +217,34 @@ public booking obj=new booking();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-                obj.setVisible(true);
+        new booking(hotelname,index,d11,d22,nrooms).setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.setVisible(false);
-        new hotels_search().setVisible(true);
+        new hotels_search(index,d11,d22,nrooms).setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(hotels_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(hotels_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(hotels_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(hotels_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addresslabel;
+    private javax.swing.JTextArea amenities;
     private javax.swing.JButton back;
     private javax.swing.JLabel heading;
+    private javax.swing.JLabel hotelnamelabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel numofrev;
+    private javax.swing.JLabel pricelabel;
+    private javax.swing.JLabel pricetot;
+    private javax.swing.JLabel ratingslabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,13 +1,17 @@
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.*;
 import java.util.regex.Pattern;
 import java.util.*;
 
 public class SignUp extends javax.swing.JFrame {
     
+     Connection connect =null;
     public SignUp() {
         initComponents();
         this.setLocationRelativeTo(null);
+        connect=dbm.dbconnect();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -245,10 +249,36 @@ public class SignUp extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
         else if(!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())&&dob_flag&&name_flag&&add){
+        String name = txt_name.getText();
         
-        this.setVisible(false);
-        new Main().setVisible(true);
+      String date = String.valueOf(txt_dob.getDate().getDate())+"/"+String.valueOf(txt_dob.getDate().getMonth())+"/"+String.valueOf(1900+txt_dob.getDate().getYear());
+      String address = txt_address.getText();
+      String email = txt_email.getText();
+      String username = txt_user_id.getText();
+      String password = String.valueOf(txt_password.getPassword());
+
+      try{
+          String query="insert into guests values(?,?,?,?,?,?)";
+          PreparedStatement ps=null;
+          ps=connect.prepareStatement(query);
+          ps.setString(1, name);
+          ps.setString(2, date);
+          ps.setString(3, address);
+          ps.setString(4, email);
+          ps.setString(5, username);
+          ps.setString(6, password);
+          ps.execute();
+          this.setVisible(false);
+        new login_page().setVisible(true);
         JOptionPane.showMessageDialog(null, "Signup Successful");
+      }catch (java.sql.SQLException e){
+          JOptionPane.showMessageDialog(null, "Username Already Taken");
+      }
+      catch(Exception e){
+           JOptionPane.showMessageDialog(null ,e);
+      }
+       
+        
         }
     }//GEN-LAST:event_proceedActionPerformed
 

@@ -8,7 +8,7 @@ public class dbm {
     try
     {
     Class.forName("org.sqlite.JDBC");
-    Connection conn=DriverManager.getConnection("jdbc:sqlite:C:\\Users\\ANISH\\Desktop\\OOPS\\databases");
+    Connection conn=DriverManager.getConnection("jdbc:sqlite:I:\\Java\\OOP_Project\\databases\\guests.sqlite");
     //JOptionPane.showMessageDialog(null ,"connected");
     return conn;
 }catch(Exception e){

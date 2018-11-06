@@ -1,13 +1,17 @@
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 
 public class login_page extends javax.swing.JFrame {
-
+Connection connect=null;
    
     public login_page() {
         initComponents();
         this.setLocationRelativeTo(null);
+        connect=dbm.dbconnect();
     }
     
     @SuppressWarnings("unchecked")
@@ -30,9 +34,7 @@ public class login_page extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(610, 410));
         setMinimumSize(new java.awt.Dimension(610, 410));
-        setPreferredSize(new java.awt.Dimension(610, 410));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -180,8 +182,35 @@ public class login_page extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
         else{
-        this.setVisible(false);
+        String name= txt_user_id.getText();
+        String rname;
+        try
+    {    
+    String query ="select * from guests where USERNAME=? and PASSWORD=? ";
+    PreparedStatement ps =connect.prepareStatement(query);
+    ps.setString(1,txt_user_id.getText());
+    ps.setString(2,String.valueOf(txt_password.getPassword()));
+    ResultSet rs=ps.executeQuery();
+   int count=0;
+    while(rs.next()){
+        count++;
+    }
+    if(count==1){
+        JOptionPane.showMessageDialog(null ,"WELCOME "+name);
+    }
+    else{
+        JOptionPane.showMessageDialog(null ,"SORRY you need to register");
+    }   
+    rs.close();
+    ps.close();
+}catch(Exception e){
+    JOptionPane.showMessageDialog(null ,e);
+}
+       
+        dispose();
+            this.setVisible(false);
         new login().setVisible(true);
+        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

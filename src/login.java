@@ -34,7 +34,6 @@ public class login extends javax.swing.JFrame {
         logout_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(500, 420));
         setResizable(false);
 
         bookings.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -54,7 +53,7 @@ public class login extends javax.swing.JFrame {
         jLabel8.setText("(Max 3 per room)");
 
         location_dropdown.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        location_dropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delhi", "Bangalore", "Kolkata", "Hyderabad", "Chennai" }));
+        location_dropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delhi", "Bangalore", "Kolkata", "Hyderabad", "Mumbai" }));
         location_dropdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 location_dropdownActionPerformed(evt);
@@ -294,7 +293,7 @@ public class login extends javax.swing.JFrame {
         
         if(dob_flag&&room){
         this.setVisible(false);
-        new hotels_search().setVisible(true);
+        new hotels_search(location_dropdown.getSelectedIndex(),txt_check_in.getDate(),txt_check_out.getDate(),Integer.parseInt(txt_rooms.getText())).setVisible(true);
         }
     }//GEN-LAST:event_search_buttonActionPerformed
 
