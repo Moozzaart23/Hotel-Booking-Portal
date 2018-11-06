@@ -1,13 +1,8 @@
 package com.test.reportGenertors;
 import java.util.Date;
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.mail.internet.*;
 public class Report {
     public void sendMail(String subject, String body) {
         //Setting up configurations for the email connection to the Google SMTP server using TLS
@@ -22,14 +17,14 @@ public class Report {
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("username", "pass");
+                return new PasswordAuthentication("f20170035@hyderabad.bits-pilani.ac.in", "");
             }
         });
         try {
             //Creating a Message object to set the email content
             MimeMessage msg = new MimeMessage(session);
             //Receiptants
-            String to = "f20170220@hyderabad.bits-pilani.ac.in";
+            String to = "f20171497@hyderabad.bits-pilani.ac.in";
             /*Parsing the String with defualt delimiter as a comma by marking the boolean as true and storing the email
             addresses in an array of InternetAddress objects*/
             InternetAddress[] address = InternetAddress.parse(to, true);

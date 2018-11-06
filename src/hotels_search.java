@@ -1,4 +1,3 @@
-
 public class hotels_search extends javax.swing.JFrame {
 public Hotel1 obj= new Hotel1();
 public Hotel1 takeobj(){

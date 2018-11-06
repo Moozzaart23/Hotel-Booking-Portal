@@ -1,4 +1,3 @@
-
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -299,9 +298,6 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_search_buttonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -325,8 +321,7 @@ public class login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        
+     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

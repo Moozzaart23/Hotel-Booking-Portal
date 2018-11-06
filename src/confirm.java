@@ -1,12 +1,9 @@
-
 public class confirm extends javax.swing.JFrame {
-
     
     public confirm() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -96,7 +93,6 @@ public class confirm extends javax.swing.JFrame {
         this.setVisible(false);
         new login().setVisible(true);
     }//GEN-LAST:event_contActionPerformed
-
     
     public void confirmation(String args[]) {
         /* Set the Nimbus look and feel */
@@ -121,13 +117,6 @@ public class confirm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(confirm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new confirm().setVisible(true);
-            }
-        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,9 +1,6 @@
-
 import javax.swing.JOptionPane;
 
-
 public class booking extends javax.swing.JFrame {
-
     
     public booking() {
         initComponents();
@@ -173,8 +170,7 @@ public class booking extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-       
+   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
