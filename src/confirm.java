@@ -1,8 +1,13 @@
 public class confirm extends javax.swing.JFrame {
-    
-    public confirm() {
+String rname;
+String runame;
+    public confirm(String uname,String xname,String book_ref) {
         initComponents();
+        runame=uname;
+        rname=xname;
         this.setLocationRelativeTo(null);
+        this.getRootPane().setDefaultButton(cont);
+        booking_ref.setText("Booking Reference : "+book_ref);
     }
     
     @SuppressWarnings("unchecked")
@@ -91,7 +96,7 @@ public class confirm extends javax.swing.JFrame {
 
     private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
         this.setVisible(false);
-        new login().setVisible(true);
+        new login(runame,rname,1).setVisible(true);
     }//GEN-LAST:event_contActionPerformed
     
     public void confirmation(String args[]) {

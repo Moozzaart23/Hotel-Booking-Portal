@@ -9,12 +9,21 @@ public class hotels_search extends javax.swing.JFrame {
     String city=new String();
     Connection connect=null;
     Date d11,d22;
-    int nrooms,index;
-    public hotels_search(int ind,Date d1,Date d2,int rooms) {
-       d11=d1;
+    int nrooms,index,waiting_flag;
+    String rname;
+    String runame;
+    boolean w1,w2,w3;
+    public hotels_search(String uname,String xname,int ind,Date d1,Date d2,int rooms,boolean waiting1,boolean waiting2,boolean waiting3,int wf) {
+       rname=xname;
+       runame=uname;
+        d11=d1;
        d22=d2;
        index=ind;
+       waiting_flag=wf;
        nrooms=rooms;
+       w1=waiting1;
+       w2=waiting2;
+       w3=waiting3;
         switch(ind){
             case 0:
                 city="Delhi";
@@ -37,6 +46,7 @@ public class hotels_search extends javax.swing.JFrame {
         connect=hotel.dbconnect();
         this.setLocationRelativeTo(null);
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(30);
+        name_options.setText(xname+", here are your options:");
  try{
         //String sql = "select hotelname,Address,Price,Ratings,numofratings,Amenities, from hotel";
         String query ="select * from hotel where CITY = ? ";
@@ -64,22 +74,26 @@ public class hotels_search extends javax.swing.JFrame {
             price3.setText("Price for "+rooms+ " rooms per night - Rs."+String.valueOf(Integer.parseInt(Price)*rooms));
             price3tot.setText("Total Price for " +String.valueOf(days)+ " nights - Rs. " +String.valueOf(rooms*days*Integer.parseInt(Price)));
             }
-             /* hotelnamelabel.setText(hotelname);
-              pricelabel.setText("Rs. "+ Price+"  - Price per night");
-              numofrev.setText(numofratings);
-              addresslabel.setText(Address);
-              ratingslabel.setText(Ratings+"/5");
-              addresslabel.setText(Address);
-              amenities.setText(Amenities);*/
 }
     }catch(Exception e){
         JOptionPane.showMessageDialog(null, e);
 
-    } }
+    } 
+    if(!waiting1){
+        button1.setEnabled(false);
+        button1.setText("Not Available");
+    }
+    if(!waiting2){
+        button2.setEnabled(false);
+        button2.setText("Not Available");
+    }   
+    if(!waiting3){
+        button3.setEnabled(false);
+        button3.setText("Not Available");
+    }   
+    }
 
     
-    
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -88,28 +102,28 @@ public class hotels_search extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         heading = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        name_options = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         name2 = new javax.swing.JLabel();
         price2 = new javax.swing.JLabel();
         price2tot = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        button2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         name1 = new javax.swing.JLabel();
         price1 = new javax.swing.JLabel();
         price1tot = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        button1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         name3 = new javax.swing.JLabel();
         price3 = new javax.swing.JLabel();
         price3tot = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        button3 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        back_button = new javax.swing.JButton();
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -143,7 +157,7 @@ public class hotels_search extends javax.swing.JFrame {
         heading.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         heading.setText("ONLINE HOTEL BOOKING PORTAL");
 
-        jLabel2.setText("X, here are your options:");
+        name_options.setText("X, here are your options:");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -154,10 +168,10 @@ public class hotels_search extends javax.swing.JFrame {
 
         price2tot.setText("Total Price for X nights - Rs. ");
 
-        jButton1.setText("View Details");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        button2.setText("View Details");
+        button2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                button2ActionPerformed(evt);
             }
         });
 
@@ -179,7 +193,7 @@ public class hotels_search extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(price2tot)
                     .addComponent(price2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(button2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(67, 67, 67))
         );
         jPanel5Layout.setVerticalGroup(
@@ -197,7 +211,7 @@ public class hotels_search extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(price2tot)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(button2))
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -211,10 +225,10 @@ public class hotels_search extends javax.swing.JFrame {
 
         price1tot.setText("Total Price for X nights - Rs. ");
 
-        jButton3.setText("View Details");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        button1.setText("View Details");
+        button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                button1ActionPerformed(evt);
             }
         });
 
@@ -236,7 +250,7 @@ public class hotels_search extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(price1tot)
                     .addComponent(price1)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(button1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(67, 67, 67))
         );
         jPanel12Layout.setVerticalGroup(
@@ -254,7 +268,7 @@ public class hotels_search extends javax.swing.JFrame {
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(price1tot)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
+                        .addComponent(button1))
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -268,10 +282,10 @@ public class hotels_search extends javax.swing.JFrame {
 
         price3tot.setText("Total Price for X nights - Rs. ");
 
-        jButton4.setText("View Details");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        button3.setText("View Details");
+        button3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                button3ActionPerformed(evt);
             }
         });
 
@@ -293,7 +307,7 @@ public class hotels_search extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(price3tot)
                     .addComponent(price3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(button3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(67, 67, 67))
         );
         jPanel13Layout.setVerticalGroup(
@@ -311,7 +325,7 @@ public class hotels_search extends javax.swing.JFrame {
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(price3tot)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4))
+                        .addComponent(button3))
                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -342,10 +356,10 @@ public class hotels_search extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        back_button.setText("Back");
+        back_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                back_buttonActionPerformed(evt);
             }
         });
 
@@ -360,14 +374,14 @@ public class hotels_search extends javax.swing.JFrame {
                         .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel2))
+                        .addComponent(name_options))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(jButton2)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGap(231, 231, 231)
+                        .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,36 +389,36 @@ public class hotels_search extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(name_options)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(back_button)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         this.setVisible(false);
-        new Hotel1(name2.getText(),index,d11,d22,nrooms).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new Hotel1(runame,rname,name2.getText(),index,d11,d22,nrooms,w1,w2,w3,waiting_flag).setVisible(true);
+    }//GEN-LAST:event_button2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         this.setVisible(false);
-        new Hotel1(name1.getText(),index,d11,d22,nrooms).setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        new Hotel1(runame,rname,name1.getText(),index,d11,d22,nrooms,w1,w2,w3,waiting_flag).setVisible(true);
+    }//GEN-LAST:event_button1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         this.setVisible(false);
-        new Hotel1(name3.getText(),index,d11,d22,nrooms).setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+        new Hotel1(runame,rname,name3.getText(),index,d11,d22,nrooms,w1,w2,w3,waiting_flag).setVisible(true);
+    }//GEN-LAST:event_button3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         this.setVisible(false);
-        new login().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        new login(rname,waiting_flag).setVisible(true);
+    }//GEN-LAST:event_back_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,14 +456,13 @@ public class hotels_search extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back_button;
+    private javax.swing.JButton button1;
+    private javax.swing.JButton button2;
+    private javax.swing.JButton button3;
     private javax.swing.JLabel heading;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -461,6 +474,7 @@ public class hotels_search extends javax.swing.JFrame {
     private javax.swing.JLabel name1;
     private javax.swing.JLabel name2;
     private javax.swing.JLabel name3;
+    private javax.swing.JLabel name_options;
     private javax.swing.JLabel price1;
     private javax.swing.JLabel price1tot;
     private javax.swing.JLabel price2;

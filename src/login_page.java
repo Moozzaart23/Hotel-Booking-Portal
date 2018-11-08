@@ -11,6 +11,7 @@ Connection connect=null;
     public login_page() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.getRootPane().setDefaultButton(login);
         connect=dbm.dbconnect();
     }
     
@@ -160,12 +161,12 @@ Connection connect=null;
         getContentPane().add(jPanel2);
         jPanel2.setBounds(360, 70, 220, 290);
 
-        heading.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 36)); // NOI18N
+        heading.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 42)); // NOI18N
         heading.setForeground(new java.awt.Color(240, 240, 240));
-        heading.setText("ONLINE HOTEL BOOKING PORTAL");
+        heading.setText("BOOK MY HOTEL");
         heading.setToolTipText("");
         getContentPane().add(heading);
-        heading.setBounds(60, 20, 530, 28);
+        heading.setBounds(170, 20, 370, 28);
 
         jLabel2.setIcon(new javax.swing.ImageIcon("I:\\Java\\OOP_Project\\Images\\Login_page\\3.jpg")); // NOI18N
         getContentPane().add(jLabel2);
@@ -175,6 +176,7 @@ Connection connect=null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean check=false;
         if("Enter User ID".equals(txt_user_id.getText())){
         JOptionPane.showMessageDialog(null, "Enter Valid User ID");
         }
@@ -183,7 +185,7 @@ Connection connect=null;
         }
         else{
         String name= txt_user_id.getText();
-        String rname;
+        
         try
     {    
     String query ="select * from guests where USERNAME=? and PASSWORD=? ";
@@ -192,25 +194,34 @@ Connection connect=null;
     ps.setString(2,String.valueOf(txt_password.getPassword()));
     ResultSet rs=ps.executeQuery();
    int count=0;
+   String query2="select NAME from guests where USERNAME=?";
+   PreparedStatement ps1 =connect.prepareStatement(query2);
+   String rname;
+   ps1.setString(1, txt_user_id.getText());
+   ResultSet rs1=ps1.executeQuery();
+   rname=rs1.getString("name");
     while(rs.next()){
         count++;
     }
     if(count==1){
-        JOptionPane.showMessageDialog(null ,"WELCOME "+name);
+        check=true;
+        JOptionPane.showMessageDialog(null ,"WELCOME "+rname);
     }
     else{
         JOptionPane.showMessageDialog(null ,"SORRY you need to register");
+        check=false;
     }   
     rs.close();
     ps.close();
+    
 }catch(Exception e){
-    JOptionPane.showMessageDialog(null ,e);
+    JOptionPane.showMessageDialog(null ,"Enter a valid User Id of Password");
 }
        
-        dispose();
+        if(check){
             this.setVisible(false);
-        new login().setVisible(true);
-        
+        new login(txt_user_id.getText()).setVisible(true);
+        }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

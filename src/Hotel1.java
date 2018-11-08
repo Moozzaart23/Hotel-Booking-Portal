@@ -10,13 +10,23 @@ public class Hotel1 extends javax.swing.JFrame {
    static Connection connect = null;
    Date d11,d22;
    int index,nrooms;
-   String hotelname=new String();
-    public Hotel1(String namehotel,int ind,Date d1,Date d2,int rooms) {
+   String hotelname1;
+   String rname;
+   int totprice,waiting_flag;
+   String runame;
+   boolean w1,w2,w3;
+    public Hotel1(String uname,String xname,String namehotel,int ind,Date d1,Date d2,int rooms,boolean waiting1,boolean waiting2,boolean waiting3,int wf) {
         d11=d1;
         d22=d2;
-        hotelname=namehotel;
+        runame=uname;
+        rname=xname;
+        waiting_flag=wf;
+        hotelname1=namehotel;
         nrooms=rooms;
         index=ind;
+        w1=waiting1;
+       w2=waiting2;
+       w3=waiting3;
         int days=d2.getDate()-d1.getDate();
         initComponents();
         connect = hotel.dbconnect();
@@ -28,19 +38,19 @@ public class Hotel1 extends javax.swing.JFrame {
         pst.setString(1,namehotel);
         ResultSet rs=pst.executeQuery();
         while(rs.next()){
-            String hotelname = rs.getString("hotelname");
-             String Address = rs.getString("Address");
+              String hotelname = rs.getString("hotelname");
+              String Address = rs.getString("Address");
               String Price = rs.getString("Price");
-             String Ratings = rs.getString("Ratings");
+              String Ratings = rs.getString("Ratings");
               String numofratings = rs.getString("numofratings");
               String Amenities = rs.getString("Amenities");
-              hotelnamelabel.setText(hotelname);
+              hotelnamelabel.setText("Hotel "+hotelname);
               pricelabel.setText("Rs. "+String.valueOf(Integer.parseInt(Price)*rooms)+" - Price for "+rooms+" rooms per night");
               pricetot.setText("Rs. "+String.valueOf(rooms*days*Integer.parseInt(Price))+" - Total Price for " +String.valueOf(days)+ " nights");
-              numofrev.setText(numofratings);
+              totprice=rooms*days*Integer.parseInt(Price);
+              numofrev.setText("No. of people rated: "+numofratings);
               addresslabel.setText(Address);
               ratingslabel.setText(Ratings+"/5");
-              addresslabel.setText(Address);
               amenities.setText(Amenities);
 }
     }catch(Exception e){
@@ -109,6 +119,7 @@ public class Hotel1 extends javax.swing.JFrame {
 
         ratingslabel.setText("jLabel1");
 
+        amenities.setEditable(false);
         amenities.setColumns(20);
         amenities.setRows(5);
         jScrollPane1.setViewportView(amenities);
@@ -217,13 +228,13 @@ public class Hotel1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        new booking(hotelname,index,d11,d22,nrooms).setVisible(true);
+        new booking(runame,rname,hotelname1,index,d11,d22,nrooms,totprice,w1,w2,w3,waiting_flag).setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.setVisible(false);
-        new hotels_search(index,d11,d22,nrooms).setVisible(true);
+        new hotels_search(runame,rname,index,d11,d22,nrooms,w1,w2,w3,waiting_flag).setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     public static void main(String args[]) {

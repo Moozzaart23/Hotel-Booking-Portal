@@ -4,7 +4,7 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 public class Report {
-    public void sendMail(String subject, String body) {
+    public void sendMail(String email, String body) {
         //Setting up configurations for the email connection to the Google SMTP server using TLS
         Properties props = new Properties();
         props.put("mail.smtp.host", "true");
@@ -17,22 +17,22 @@ public class Report {
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("f20170035@hyderabad.bits-pilani.ac.in", "");
+                return new PasswordAuthentication("bookmyhotel2.0@gmail.com", "Qwerty@1");
             }
         });
         try {
             //Creating a Message object to set the email content
             MimeMessage msg = new MimeMessage(session);
             //Receiptants
-            String to = "f20171497@hyderabad.bits-pilani.ac.in";
+            String to = email;
             /*Parsing the String with defualt delimiter as a comma by marking the boolean as true and storing the email
             addresses in an array of InternetAddress objects*/
             InternetAddress[] address = InternetAddress.parse(to, true);
             //Setting the recepients from the address variable
             msg.setRecipients(Message.RecipientType.TO, address);
-            msg.setSubject(subject);
+            msg.setSubject("Hotel Booking Conformation");
             msg.setSentDate(new Date());
-            msg.setText(body);
+            msg.setContent(body, "text/html");
             msg.setHeader("XPriority", "1");
             Transport.send(msg);
             //System.out.println("Mail has been sent successfully");

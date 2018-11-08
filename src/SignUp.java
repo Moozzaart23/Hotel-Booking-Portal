@@ -11,6 +11,7 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.getRootPane().setDefaultButton(proceed);
         connect=dbm.dbconnect();
     }
     @SuppressWarnings("unchecked")
