@@ -13,6 +13,7 @@ public class booking extends javax.swing.JFrame {
    Date d11,d22;
    int index,nrooms;
    String hotelname=new String();
+   
    String rname;
    int totprice;
    Connection connect=null;
@@ -30,6 +31,7 @@ public class booking extends javax.swing.JFrame {
         d11=d1;
         d22=d2;
         runame=uname;
+        this.getRootPane().setDefaultButton(confirm);
         totprice=xprice;
         waiting_flag=wf;
         rname=xname;
@@ -72,7 +74,6 @@ public class booking extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
-        heading = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         enter_details = new javax.swing.JLabel();
         aadhar = new javax.swing.JComboBox<>();
@@ -82,14 +83,12 @@ public class booking extends javax.swing.JFrame {
         discounts = new javax.swing.JLabel();
         bitsian = new javax.swing.JCheckBox();
         price = new javax.swing.JLabel();
+        heading1 = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
-        heading.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        heading.setText("ONLINE HOTEL BOOKING PORTAL");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -132,27 +131,31 @@ public class booking extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(aadhar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(discounts, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bitsian, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_aadhar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(101, 101, 101))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(aadhar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(txt_aadhar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(enter_details)
+                        .addGap(82, 82, 82))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(102, 102, 102)
-                            .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(75, 75, 75)
-                            .addComponent(enter_details))))
+                .addGap(102, 102, 102)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(discounts, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bitsian))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,6 +180,10 @@ public class booking extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
+        heading1.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 36)); // NOI18N
+        heading1.setText("BOOK MY HOTEL 2.0");
+        heading1.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,17 +192,17 @@ public class booking extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addComponent(heading1)
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(heading1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -225,65 +232,61 @@ public class booking extends javax.swing.JFrame {
         }
         else{
             try{
-          String query1="insert into booking values(?,?,?,?,?,?,?,?,?)";
-          PreparedStatement ps=connect1.prepareStatement(query1);
-          ps.setString(1, runame);
-          ps.setString(2, hotelname);
-          SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-          ps.setString(3,din);
-          ps.setString(4, dout);
-          ps.setInt(5, nrooms);
-          ps.setString(6, txt_aadhar.getText());
-          book_ref=String.valueOf(new Date().getTime());
-          ps.setString(7, book_ref);
-          ps.setInt(8, Integer.parseInt(price.getText()));
-          if(waiting_flag==0)
-            ps.setString(9, "Confirm");
-          if(waiting_flag==1)
-            ps.setString(9, "Waiting");
-          ps.execute();
-         }catch (java.sql.SQLException e){
-          //JOptionPane.showMessageDialog(null, "");
-      }
-      catch(Exception e){
-           JOptionPane.showMessageDialog(null ,e);
-      }
-       
-            this.setVisible(false);
-            if(bitsian.isSelected())
-                JOptionPane.showMessageDialog(null, "A Discount Code has been sent to your email. Kindly provide it during Check-In to avail discount.");
-            if (waiting_flag==0)
-                new confirm(runame,rname,book_ref).setVisible(true);
-            else{
                 
-            if(JOptionPane.showConfirmDialog(null,"You booking confirmation is subject to cancellation by a user. So kindly keep backup options ready. Do you want to proceed joining waiting list?", null, JOptionPane.YES_NO_OPTION)==0){
-                JOptionPane.showMessageDialog(null, "You have successfully joined the waiting list. Kindly check MANAGE BOOKINGS section for status.");
-                new login(runame).setVisible(true);
-            }else{
-            new Hotel1(runame,rname,hotelname,index,d11,d22,nrooms,w1,w2,w3,waiting_flag).setVisible(true);
+                String query1="insert into booking values(?,?,?,?,?,?,?,?,?)";
+                PreparedStatement ps=connect1.prepareStatement(query1);
+                ps.setString(1, runame);
+                ps.setString(2, hotelname);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                ps.setString(3,din);
+                ps.setString(4, dout);
+                ps.setInt(5, nrooms);
+                ps.setString(6, txt_aadhar.getText());
+                book_ref=String.valueOf(new Date().getTime());
+                ps.setString(7, book_ref);
+                ps.setInt(8, totprice);
+                if(waiting_flag==0)
+                    ps.setString(9, "Confirm");
+                if(waiting_flag==1)
+                    ps.setString(9, "Waiting");
+                ps.execute();
+            }catch (java.sql.SQLException e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
-            
-            
-            }
-            
-            
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null ,e);
+        }
             Report obj=new Report();
-            
-            String body="<html><body><h2>Your Booking at HOTEL "+hotelname+" is Confirmed!</h2><h3>Booking Reference : "+book_ref+"</h3><h3>Check-In : "+din+"</h3><h3>Check-Out : "+dout+"</h3><h3>Address : "+address+", "+city+"</h3>";
+            String body;
+            if(waiting_flag==0)
+                body="<html><body><h2>Your Booking at HOTEL "+hotelname+" is Confirmed!</h2><h3>Booking Reference : "+book_ref+"</h3><h3>Check-In : "+din+"</h3><h3>Check-Out : "+dout+"</h3><h3>Address : "+address+", "+city+"</h3>";
+            else
+                body="<html><body><h2>Your Booking at HOTEL "+hotelname+" is in Waiting!</h2><h3>Reference : "+book_ref+"</h3><h3>Check-In : "+din+"</h3><h3>Check-Out : "+dout+"</h3><h3>Address : "+address+", "+city+"</h3><h3>Kindly check MANAGE BOOKINGS section for status.</h3>";
             if(bitsian.isSelected()){
             body+="<h3>Verification Code is "+disccode.get(new Random().nextInt(disccode.size()))+". Provide this code during check-in to avail discount.</h3></body></html>";
             }else{
             body+="</body></html>";
             }
-            if(waiting_flag==0){
-            //obj.sendMail(email,body);
+            
+            
+            this.setVisible(false);
+            if (waiting_flag==0){
+                //obj.sendMail(email,body);
+                if(bitsian.isSelected())
+                JOptionPane.showMessageDialog(null, "A Discount Code has been sent to your email. Kindly provide it during Check-In to avail discount.");
+                new confirm(runame,rname,book_ref).setVisible(true);}
+            else{
+                
+            if(JOptionPane.showConfirmDialog(null,"You booking confirmation is subject to cancellation by a user. So kindly keep backup options ready. Do you want to proceed joining waiting list?", null, JOptionPane.YES_NO_OPTION)==0){
+                JOptionPane.showMessageDialog(null, "You have successfully joined the waiting list. Kindly check MANAGE BOOKINGS section for status.");
+                //obj.sendMail(email,body);
+                if(bitsian.isSelected())
+                JOptionPane.showMessageDialog(null, "A Discount Code has been sent to your email. Kindly provide it during Check-In to avail discount.");
+                new login(runame).setVisible(true);
+            }else{
+            new Hotel1(runame,rname,hotelname,index,d11,d22,nrooms,w1,w2,w3,waiting_flag).setVisible(true);
             }
-            /*
-                Add booking to hotel waiting
-            
-            */
-            
-            
+            }
             }
         }
         catch(Exception e){
@@ -341,7 +344,7 @@ public class booking extends javax.swing.JFrame {
     private javax.swing.JButton confirm;
     private javax.swing.JLabel discounts;
     private javax.swing.JLabel enter_details;
-    private javax.swing.JLabel heading;
+    private javax.swing.JLabel heading1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JLabel price;

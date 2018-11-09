@@ -21,7 +21,6 @@ public class SignUp extends javax.swing.JFrame {
         txt_name = new javax.swing.JTextField();
         name = new javax.swing.JLabel();
         dob = new javax.swing.JLabel();
-        heading = new javax.swing.JLabel();
         address = new javax.swing.JLabel();
         email = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -35,11 +34,16 @@ public class SignUp extends javax.swing.JFrame {
         txt_dob = new com.toedter.calendar.JDateChooser();
         txt_password = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
+        heading1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(610, 380));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_name.setForeground(new java.awt.Color(204, 204, 204));
         txt_name.setText("Enter Name");
+        txt_name.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txt_name.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_name.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -49,20 +53,32 @@ public class SignUp extends javax.swing.JFrame {
                 txt_nameFocusLost(evt);
             }
         });
+        getContentPane().add(txt_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 70, 127, 25));
 
-        name.setText("Name:");
+        name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setText("Name");
+        getContentPane().add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 72, 50, -1));
 
+        dob.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        dob.setForeground(new java.awt.Color(255, 255, 255));
         dob.setText("Date of Birth");
+        getContentPane().add(dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, -1));
 
-        heading.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        heading.setText("ONLINE HOTEL BOOKING PORTAL");
-
+        address.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        address.setForeground(new java.awt.Color(255, 255, 255));
         address.setText("Residential Address");
+        getContentPane().add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 158, -1, -1));
 
+        email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        email.setForeground(new java.awt.Color(255, 255, 255));
         email.setText("Email-ID");
+        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 201, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 235, 381, -1));
 
         txt_address.setForeground(new java.awt.Color(204, 204, 204));
         txt_address.setText("Enter Address");
+        txt_address.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txt_address.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_addressFocusGained(evt);
@@ -71,9 +87,11 @@ public class SignUp extends javax.swing.JFrame {
                 txt_addressFocusLost(evt);
             }
         });
+        getContentPane().add(txt_address, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 156, 130, 25));
 
         txt_email.setForeground(new java.awt.Color(204, 204, 204));
         txt_email.setText("Enter E-mail ID");
+        txt_email.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_emailFocusGained(evt);
@@ -82,13 +100,21 @@ public class SignUp extends javax.swing.JFrame {
                 txt_emailFocusLost(evt);
             }
         });
+        getContentPane().add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 199, 130, 25));
 
+        user_id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        user_id.setForeground(new java.awt.Color(255, 255, 255));
         user_id.setText("User ID");
+        getContentPane().add(user_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 245, -1, -1));
 
+        password.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        password.setForeground(new java.awt.Color(255, 255, 255));
         password.setText("Password");
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 288, -1, -1));
 
         txt_user_id.setForeground(new java.awt.Color(204, 204, 204));
         txt_user_id.setText("Enter User ID");
+        txt_user_id.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txt_user_id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_user_idFocusGained(evt);
@@ -97,14 +123,18 @@ public class SignUp extends javax.swing.JFrame {
                 txt_user_idFocusLost(evt);
             }
         });
+        getContentPane().add(txt_user_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 243, 130, 25));
 
+        proceed.setBackground(new java.awt.Color(255, 153, 102));
         proceed.setText("PROCEED");
         proceed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 proceedActionPerformed(evt);
             }
         });
+        getContentPane().add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 109, 31));
 
+        cancel.setBackground(new java.awt.Color(255, 153, 102));
         cancel.setText("CANCEL");
         cancel.setPreferredSize(new java.awt.Dimension(74, 23));
         cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -112,98 +142,32 @@ public class SignUp extends javax.swing.JFrame {
                 cancelActionPerformed(evt);
             }
         });
+        getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 109, 31));
 
+        txt_dob.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txt_dob.setDateFormatString("dd-MM-yyyy");
+        getContentPane().add(txt_dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 113, 153, 25));
+
+        txt_password.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 286, 130, 25));
 
         jCheckBox1.setText("Show Password");
+        jCheckBox1.setOpaque(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 287, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(name)
-                            .addComponent(dob)
-                            .addComponent(address)
-                            .addComponent(email))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt_name, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                .addComponent(txt_email, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                .addComponent(txt_address))
-                            .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(user_id)
-                            .addComponent(password))
-                        .addGap(91, 91, 91)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(txt_password))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox1)))
-                .addGap(0, 69, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(proceed)
-                        .addGap(68, 68, 68)
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(name))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dob)
-                    .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(address)
-                    .addComponent(txt_address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(email)
-                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(user_id)
-                    .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(password)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(proceed)
-                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
-        );
+        heading1.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 36)); // NOI18N
+        heading1.setForeground(new java.awt.Color(255, 255, 255));
+        heading1.setText("BOOK MY HOTEL 2.0");
+        heading1.setToolTipText("");
+        getContentPane().add(heading1, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 11, -1, 28));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("I:\\Java\\OOP_Project\\Images\\sign2.jpg")); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 520, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -372,8 +336,9 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JButton cancel;
     private javax.swing.JLabel dob;
     private javax.swing.JLabel email;
-    private javax.swing.JLabel heading;
+    private javax.swing.JLabel heading1;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel password;

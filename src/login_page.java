@@ -163,10 +163,10 @@ Connection connect=null;
 
         heading.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 42)); // NOI18N
         heading.setForeground(new java.awt.Color(240, 240, 240));
-        heading.setText("BOOK MY HOTEL");
+        heading.setText("BOOK MY HOTEL 2.0");
         heading.setToolTipText("");
         getContentPane().add(heading);
-        heading.setBounds(170, 20, 370, 28);
+        heading.setBounds(120, 20, 390, 28);
 
         jLabel2.setIcon(new javax.swing.ImageIcon("I:\\Java\\OOP_Project\\Images\\Login_page\\3.jpg")); // NOI18N
         getContentPane().add(jLabel2);
@@ -184,44 +184,44 @@ Connection connect=null;
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
         else{
-        String name= txt_user_id.getText();
-        
-        try
-    {    
-    String query ="select * from guests where USERNAME=? and PASSWORD=? ";
-    PreparedStatement ps =connect.prepareStatement(query);
-    ps.setString(1,txt_user_id.getText());
-    ps.setString(2,String.valueOf(txt_password.getPassword()));
-    ResultSet rs=ps.executeQuery();
-   int count=0;
-   String query2="select NAME from guests where USERNAME=?";
-   PreparedStatement ps1 =connect.prepareStatement(query2);
-   String rname;
-   ps1.setString(1, txt_user_id.getText());
-   ResultSet rs1=ps1.executeQuery();
-   rname=rs1.getString("name");
-    while(rs.next()){
-        count++;
-    }
-    if(count==1){
-        check=true;
-        JOptionPane.showMessageDialog(null ,"WELCOME "+rname);
-    }
-    else{
-        JOptionPane.showMessageDialog(null ,"SORRY you need to register");
-        check=false;
-    }   
-    rs.close();
-    ps.close();
-    
-}catch(Exception e){
-    JOptionPane.showMessageDialog(null ,"Enter a valid User Id of Password");
-}
+            try
+                {    
+                String dbuname=txt_user_id.getText();
+                String query ="select PASSWORD from guests where USERNAME=? ";
+                PreparedStatement ps =connect.prepareStatement(query);
+                ps.setString(1,dbuname);
+                ResultSet rs=ps.executeQuery();
+                int count=0;
+                String pass=null;
+                while(rs.next()){
+                count++;
+                pass=rs.getString("PASSWORD");
+                }
+                if(count==1){
+                    if(pass.equals(String.valueOf(txt_password.getPassword()))){
+                    check=true;
+                    JOptionPane.showMessageDialog(null ,"WELCOME "+rs.getString("NAME")+"!");
+                    }
+                    else
+                    JOptionPane.showMessageDialog(null ,"Incorrect password!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null ,"SORRY you need to register!");
+                    check=false;
+                }
+            }catch(Exception e){
+                //JOptionPane.showMessageDialog(null ,"Enter a valid User Id or Password!");
+                //System.out.println(e.getMessage());
+            }
        
         if(check){
             this.setVisible(false);
-        new login(txt_user_id.getText()).setVisible(true);
+            new login(txt_user_id.getText()).setVisible(true);
         }
+        
+        
+        
+        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
