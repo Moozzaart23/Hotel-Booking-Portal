@@ -1,5 +1,4 @@
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,15 +103,6 @@ public class modification extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(checkout)))
                 .addGap(77, 77, 77))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(hotelname_label)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,17 +123,24 @@ public class modification extends javax.swing.JFrame {
                         .addGap(62, 62, 62)
                         .addComponent(jLabel7)))
                 .addGap(0, 44, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
+                        .addComponent(hotelname_label)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(hotelname_label)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkin)
                             .addComponent(checkout))
@@ -154,6 +151,8 @@ public class modification extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(hotelname_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(check_in, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
@@ -227,18 +226,20 @@ public class modification extends javax.swing.JFrame {
             PreparedStatement pst1=null;
             ResultSet rs1=null;
             boolean wait=true;
-            try {
+            try {try {
+                Thread.sleep(700);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(modification.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 pst1 = connect1.prepareStatement(query1);
                 pst1.setString(1,hotelname);
                 pst1.setString(2, "Confirm");
-                rs1=pst1.executeQuery();
+                
             } catch (SQLException ex) {
-                Logger.getLogger(modification.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-            
-            
-            
-
+                System.out.println("Here");
+                //Logger.getLogger(modification.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
+            }
             int roomsbooked;
             long interval = 24*1000 * 60 * 60; // 1 hour in millis
             long endTime =d3.getTime() ; // create your endtime here, possibly using Calendar or Date
@@ -249,15 +250,20 @@ public class modification extends javax.swing.JFrame {
                 roomsbooked=0;
             
                 try {
+                    rs1=pst1.executeQuery();
                     while(rs1.next()){
                         String check_indate=rs1.getString("datein");
                         Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(check_indate);
+                        //System.out.println("date1: "+date1);
                         String check_outdate=rs1.getString("dateout");
                         Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(check_outdate);
-                        if((d1.before(date2)&&d1.after(date1)&&!booking.equals(rs1.getString("Booking_Reference")))){
-                        roomsbooked+=rs1.getInt("rooms");
-                        }
-                    }
+                        //System.out.println("date2: "+date2);
+    if(((d1.before(date2)&&d1.after(date1))||((d1.getDate()==date2.getDate())&&(d1.getMonth()==date2.getMonth())&&(d1.getYear()==date2.getYear()))||((d1.getDate()==date1.getDate())&&(d1.getMonth()==date1.getMonth())&&(d1.getYear()==date1.getYear())))&&!booking.equals(rs1.getString("Booking_Reference"))){
+                            //System.out.println("Entered");
+        roomsbooked+=rs1.getInt("rooms");
+    }
+                    }//System.out.println(hotelname+" : "+d1+" : "+roomsbooked);
+                
                 }catch (Exception ex) {
                     Logger.getLogger(modification.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -275,6 +281,8 @@ public class modification extends javax.swing.JFrame {
                 Logger.getLogger(modification.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+            //System.out.println(wait);
+            
             if(!wait){
                 JOptionPane.showMessageDialog(null, "Currently "+String.valueOf(userrooms)+" rooms are not available for your selected Check-In Date. Try with another Check-In Date.");   
             }else{
@@ -285,8 +293,8 @@ public class modification extends javax.swing.JFrame {
                 PreparedStatement st1=null;
                 try {
                     st1 = connect2.prepareStatement(update);
-                    st1.setString(1,String.valueOf(d2.getDate())+"/"+String.valueOf(d2.getMonth())+"/"+String.valueOf(1900+d2.getYear()));
-                    st1.setString(2,String.valueOf(d3.getDate())+"/"+String.valueOf(d3.getMonth())+"/"+String.valueOf(1900+d3.getYear()));
+                    st1.setString(1,String.valueOf(d2.getDate())+"/"+String.valueOf(d2.getMonth()+1)+"/"+String.valueOf(1900+d2.getYear()));
+                    st1.setString(2,String.valueOf(d3.getDate())+"/"+String.valueOf(d3.getMonth()+1)+"/"+String.valueOf(1900+d3.getYear()));
                     st1.setString(3,booking);
                     
                     

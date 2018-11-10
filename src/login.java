@@ -15,6 +15,8 @@ public class login extends javax.swing.JFrame {
     Connection connect =null;
     Connection connect1 =null;
     Connection connect2=null;
+    PreparedStatement st1=null,smt=null,pst1=null,ps=null,pstmt=null,pst2=null;
+    ResultSet rs1,rs,rs2,rs3;
     public login(String uname,int x){
         initComponents();
         waiting_flag=x;
@@ -25,18 +27,28 @@ public class login extends javax.swing.JFrame {
         connect1=bookdb.dbconnect();
         connect2=hotel.dbconnect();
         String query2="select NAME from guests where USERNAME=?";
+        PreparedStatement ps1=null;
         try {
-            PreparedStatement ps1 = connect.prepareStatement(query2);
+            ps1 = connect.prepareStatement(query2);
             ps1.setString(1, uname);
-            ResultSet rs1=ps1.executeQuery();
-            rname=rs1.getString("name");
+            rs3=ps1.executeQuery();
+            rname=rs3.getString("name");
             hi_name.setText("Hi, "+rname);
-            ps1.close();    
-            rs1.close();
+            
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Entered");
+            System.out.println(ex.getMessage());
+            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }     
     updateTable();
+    /*
+        try {
+            ps1.close();
+            rs1.close();
+            connect.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     
     
     }
@@ -49,87 +61,54 @@ public class login extends javax.swing.JFrame {
         connect1=bookdb.dbconnect();
         connect2=hotel.dbconnect();
         String query2="select NAME from guests where USERNAME=?";
+        PreparedStatement ps1=null;
         try {
-            PreparedStatement ps1 = connect.prepareStatement(query2);
+            ps1 = connect.prepareStatement(query2);
             ps1.setString(1, uname);
-            ResultSet rs1=ps1.executeQuery();
-            rname=rs1.getString("name");
+            rs3=ps1.executeQuery();
+            rname=rs3.getString("name");
             hi_name.setText("Hi, "+rname);
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }     
     updateTable();
-    
+    /*try {
+            ps1.close();
+            rs1.close();
+            connect.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
-    public login(String uname,Date d2,Date d3,String booking){
+    public login(String uname,int x,String name){
         initComponents();
+        waiting_flag=x;
         runame=uname;
         this.setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(search_button);
         connect=dbm.dbconnect();
         connect1=bookdb.dbconnect();
         connect2=hotel.dbconnect();
-        String query2="select NAME from guests where USERNAME=?";
-        try {
-            PreparedStatement ps1 = connect.prepareStatement(query2);
-            ps1.setString(1, uname);
-            ResultSet rs1=ps1.executeQuery();
-            rname=rs1.getString("name");
-            hi_name.setText("Hi, "+rname);
-            ps1.close();
-            rs1.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }     
+        
+            hi_name.setText("Hi, "+name);
+              
     updateTable();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    String update = "UPDATE booking SET datein=? , dateout=? WHERE Booking_Reference = ?";
-                
-                PreparedStatement st1;
-                try {
-                    st1 = connect1.prepareStatement(update);
-                    st1.setString(1,String.valueOf(d2.getDate())+"/"+String.valueOf(d2.getMonth())+"/"+String.valueOf(1900+d2.getYear()));
-                    st1.setString(2,String.valueOf(d3.getDate())+"/"+String.valueOf(d3.getMonth())+"/"+String.valueOf(1900+d3.getYear()) );
-                    st1.setString(3, booking);
-                    
-                    
-                    
-                    st1.executeUpdate();
-                    st1.close();
-                    System.out.println("Entered");
-                    
-                } catch (SQLException ex) {
-                    //Logger.getLogger(modification.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println(ex.getMessage());
-                }
-    
     }
-    
-    
-    
     public void updateTable(){
     String sql="select Booking_Reference,hotelname,datein,dateout,rooms,Status from booking where username=?";
         try {
-            PreparedStatement smt=connect1.prepareStatement(sql);
+            smt=connect1.prepareStatement(sql);
             smt.setString(1, runame);
-            ResultSet rs=smt.executeQuery();
+            rs=smt.executeQuery();
             
             booking_table.setModel(DbUtils.resultSetToTableModel(rs));
-            smt.close();
-            rs.close();
+            
         } catch (SQLException e) {
             // TODO Auto-generated catch block
              JOptionPane.showMessageDialog(null, e);
         }
     
     }
-    
-    
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -387,12 +366,13 @@ public class login extends javax.swing.JFrame {
 
     private void search_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_buttonActionPerformed
         boolean dob_flag=true,room=true,waiting1=true,waiting2=true,waiting3=true;
+        PreparedStatement pst=null;
         try{
         //String sql = "select hotelname,Address,Price,Ratings,numofratings,Amenities, from hotel";
         String query ="select * from hotel where CITY = ?";
         String query1="select rooms,datein,dateout from booking where hotelname = ? and Status=?";
-        PreparedStatement pst = connect2.prepareStatement(query);
-        PreparedStatement pst1 = connect1.prepareStatement(query1);
+        pst = connect2.prepareStatement(query);
+        pst1 = connect1.prepareStatement(query1);
         
         String city = null;
         switch(location_dropdown.getSelectedIndex()){case 0:
@@ -412,7 +392,7 @@ public class login extends javax.swing.JFrame {
                 break;}
         pst.setString(1,city);
         
-        ResultSet rs=pst.executeQuery();
+        rs=pst.executeQuery();
         int count=0;
         String hotelname=null;
         
@@ -420,6 +400,8 @@ public class login extends javax.swing.JFrame {
         long interval = 24*1000 * 60 * 60; // 1 hour in millis
         long endTime =txt_check_out.getDate().getTime() ; // create your endtime here, possibly using Calendar or Date
         long curTime = txt_check_in.getDate().getTime();
+        long c1,c2,c3;
+        c1=c2=c3=curTime;
         String name1=null,name2=null,name3=null;
         rs.next();
         for(int i=0;i<3;i++,rs.next()){
@@ -433,12 +415,12 @@ public class login extends javax.swing.JFrame {
             name3=hotelname;
         }
         
-        while (curTime <= endTime) {
-            Date d1=new Date(curTime);
+        while (c1 <= endTime) {
+            Date d1=new Date(c1);
             roomsbooked=0;
             pst1.setString(1, name1);
             pst1.setString(2, "Confirm");
-            ResultSet rs1=pst1.executeQuery();
+            rs1=pst1.executeQuery();
             while(rs1.next()){
                String check_indate=rs1.getString("datein");  
                Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(check_indate);
@@ -447,18 +429,17 @@ public class login extends javax.swing.JFrame {
              if(d1.before(date2)&&d1.after(date1)){
                  roomsbooked+=rs1.getInt("rooms");
              }
-            }
-            if(roomsbooked+Integer.parseInt(txt_rooms.getText())>10){
+            }if(roomsbooked+Integer.parseInt(txt_rooms.getText())>10){
             waiting1=false;
             break;
             }
-            curTime += interval;
+            c1 += interval;
         }
-        while (curTime <= endTime) {
-            Date d1=new Date(curTime);
+        while (c2 <= endTime) {
+            Date d1=new Date(c2);
             roomsbooked=0;
             pst1.setString(1, name2);
-            ResultSet rs1=pst1.executeQuery();
+            rs1=pst1.executeQuery();
             while(rs1.next()){
                String check_indate=rs1.getString("datein");  
                Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(check_indate);
@@ -467,18 +448,17 @@ public class login extends javax.swing.JFrame {
              if(d1.before(date2)&&d1.after(date1)){
                  roomsbooked+=rs1.getInt("rooms");
              }
-            }
-            if(roomsbooked+Integer.parseInt(txt_rooms.getText())>10){
+            }if(roomsbooked+Integer.parseInt(txt_rooms.getText())>10){
             waiting2=false;
             break;
             }
-            curTime += interval;
+            c2 += interval;
         }
-        while (curTime <= endTime) {
-            Date d1=new Date(curTime);
+        while (c3 <= endTime) {
+            Date d1=new Date(c3);
             roomsbooked=0;
             pst1.setString(1, name3);
-            ResultSet rs1=pst1.executeQuery();
+            rs1=pst1.executeQuery();
             while(rs1.next()){
                String check_indate=rs1.getString("datein");  
                Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(check_indate);
@@ -487,23 +467,23 @@ public class login extends javax.swing.JFrame {
              if(d1.before(date2)&&d1.after(date1)){
                  roomsbooked+=rs1.getInt("rooms");
              }
-            }
-            if(roomsbooked+Integer.parseInt(txt_rooms.getText())>10){
+            }if(roomsbooked+Integer.parseInt(txt_rooms.getText())>10){
             waiting3=false;
             break;
             }
-            curTime += interval;
+            c3 += interval;
         }
         
-        }catch(Exception e){
-        //JOptionPane.showMessageDialog(null, e);   
-        } 
+         
         if(waiting_flag==1){
             waiting1=true;
             waiting2=true;
             waiting3=true;
         }
         
+        
+        
+        //System.out.println(waiting1+"\n"+waiting2+"\n"+waiting3);
         if(waiting1||waiting2||waiting3)
         {
         if(true){
@@ -553,19 +533,30 @@ public class login extends javax.swing.JFrame {
             room=false;
             JOptionPane.showMessageDialog(null, "We allow maximum of 3 people per room");
                     }
-                
-        
-        
-        
         
         if(dob_flag&&room){
-        this.setVisible(false);
-        new hotels_search(runame,rname,location_dropdown.getSelectedIndex(),txt_check_in.getDate(),txt_check_out.getDate(),Integer.parseInt(txt_rooms.getText()),waiting1,waiting2,waiting3,waiting_flag).setVisible(true);
+            this.setVisible(false);
+            new hotels_search(runame,rname,location_dropdown.getSelectedIndex(),txt_check_in.getDate(),txt_check_out.getDate(),Integer.parseInt(txt_rooms.getText()),waiting1,waiting2,waiting3,waiting_flag).setVisible(true);
         }
         }
         else{
             this.setVisible(false);
             new waiting(runame,rname,location_dropdown.getSelectedIndex(),txt_check_in.getDate(),txt_check_out.getDate(),Integer.parseInt(txt_rooms.getText())).setVisible(true);
+        }
+        }catch(Exception e){
+        //JOptionPane.showMessageDialog(null, e);   
+        } finally{
+        try {
+                pst.close();
+                pst1.close();
+                rs.close();
+                rs1.close();
+                connect1.close();
+                connect2.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
         }
     }//GEN-LAST:event_search_buttonActionPerformed
 
@@ -578,11 +569,11 @@ public class login extends javax.swing.JFrame {
         String hotel_name_del = booking_table.getModel().getValueAt(row, column1).toString();
         
         String sql="select datein,Price from booking where Booking_Reference = ?";
-        PreparedStatement ps;
+        
         try {
             ps = connect1.prepareStatement(sql);
             ps.setString(1, value);
-            ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
             String checkin=rs.getString("datein");
             bookingprice=rs.getInt("Price");
             Date d1=new Date();
@@ -600,7 +591,7 @@ public class login extends javax.swing.JFrame {
         String sql1 = "delete from booking where Booking_Reference = ?";
  
         try {
-            PreparedStatement pstmt = connect1.prepareStatement(sql1); 
+            pstmt = connect1.prepareStatement(sql1); 
             pstmt.setString(1, value);
             if(!check){    
             if(JOptionPane.showConfirmDialog(null, "Since less than 3 days are remaining before your specified check in date, you are liable to pay Rs."+String.valueOf(Math.round(bookingprice/2))+". Do you want to continue?",null, JOptionPane.YES_NO_OPTION)==0){
@@ -615,26 +606,23 @@ public class login extends javax.swing.JFrame {
         } 
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally{
+        pstmt.close();
+        
         }
-          
-        
-        
-        
-        
-        
         
         boolean wait=true;
         try{
             String query1="select rooms,datein,dateout,Booking_Reference from booking where hotelname = ? and Status=?";
             String query2="select rooms,datein,dateout from booking where hotelname = ? and Status=?";
-            PreparedStatement pst1 = connect1.prepareStatement(query1);
+            pst1 = connect1.prepareStatement(query1);
             pst1.setString(1, hotel_name_del);
             pst1.setString(2, "Waiting");
-            PreparedStatement pst2 = connect1.prepareStatement(query2);
+            pst2 = connect1.prepareStatement(query2);
             pst2.setString(1, hotel_name_del);
             pst2.setString(2, "Confirm");
             
-            ResultSet rs1=pst1.executeQuery();
+            rs1=pst1.executeQuery();
             int count=0;
             String book_ref;
         
@@ -652,7 +640,7 @@ public class login extends javax.swing.JFrame {
         
          
             while (curTime <= endTime) {
-                ResultSet rs2=pst2.executeQuery();
+                rs2=pst2.executeQuery();
                 Date d1=new Date(curTime);
                 roomsbooked=0;
             
@@ -675,7 +663,7 @@ public class login extends javax.swing.JFrame {
             }
             if(wait){
                 String update = "UPDATE booking SET Status = ? WHERE Booking_Reference = ?";
-                PreparedStatement st1=connect1.prepareStatement(update);
+                st1=connect1.prepareStatement(update);
                 st1.setString(1, "Confirm");
                 st1.setString(2, book_ref);
                 st1.executeUpdate();
@@ -685,16 +673,22 @@ public class login extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         
-        }   
+        }
+        try {
+                st1.close();
+            } catch (SQLException ex) {
+                //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+      updateTable();
     }
     catch(Exception q){
         JOptionPane.showMessageDialog(null, "Please Select a Row");
     }
-      updateTable();   
+               
     }//GEN-LAST:event_cancel_buttonActionPerformed
 
     private void modify_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modify_buttonActionPerformed
-        int column = 0;
+        try{int column = 0;
         int row =booking_table.getSelectedRow();
         
         int column1 = 1;
@@ -716,17 +710,16 @@ public class login extends javax.swing.JFrame {
         
         
         boolean check=true;
-        try{String value = booking_table.getModel().getValueAt(row, column).toString();
+        String value = booking_table.getModel().getValueAt(row, column).toString();
         
         String sql="select datein from booking where Booking_Reference = ?";
-        PreparedStatement ps;
+        
         try {
             ps = connect1.prepareStatement(sql);
             ps.setString(1, value);
-            ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
             String checkin=rs.getString("datein");
-            ps.close();
-            rs.close();
+            
             Date d1=new Date();
             String todaycheck=String.valueOf(d1.getDate()+2)+"/"+String.valueOf(d1.getMonth())+"/"+String.valueOf(1900+d1.getYear());
         if(checkin.equals(todaycheck)){
@@ -740,6 +733,7 @@ public class login extends javax.swing.JFrame {
         }
         else{
         this.setVisible(false);
+        connect1.close();
         new modification(runame,value,Integer.parseInt(value_rooms),value_hotelname,value_datein,value_dateout).setVisible(true);
         }}catch(Exception q){
         JOptionPane.showMessageDialog(null, "Please Select a Row");

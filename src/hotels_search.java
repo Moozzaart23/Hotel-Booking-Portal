@@ -2,6 +2,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -412,8 +414,11 @@ public class hotels_search extends javax.swing.JFrame {
     }//GEN-LAST:event_button3ActionPerformed
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
-        this.setVisible(false);
-        new login(rname,waiting_flag).setVisible(true);
+        
+            this.setVisible(false);
+        //    Thread.sleep(700);
+            new login(rname,waiting_flag,rname).setVisible(true);
+        
     }//GEN-LAST:event_back_buttonActionPerformed
 
     /**
